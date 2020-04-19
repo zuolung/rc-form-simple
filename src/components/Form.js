@@ -1,20 +1,19 @@
 import React from "react";
 import { comparisonObject } from "../../utils/common";
-import { Toast } from "antd-mobile";
 /**
  * 简单实现antd下Form组件的双向数据绑定功能
  * @param                 传入组件      可采用@Form.create()
  * @getFieldDecorator     支持组件 antMobile(InputItem、Picker、DatePicker、Switch等)、input
  * @支持自定义组件          { value/checked, onChange }
  */
-class Form extends React.PureComponent { }
+class Form extends React.Component {}
 
 /**
+ * @param       Params
  * @param       scrollIntoView      表单提交异常时滚动表单项到视图中央
- * @param       toastConfig         toast提示配置, 传入fasle不触发Toast
+ * @param       callback_onErr      表单提交异常回调函数  
  */
 Form.create = (Params = {}) => {
-  if (Params && Params.toastConfig) Toast.config(toastConfig);
   return (WrappedComponent) => {
     return class extends React.Component {
       constructor(props) {
@@ -128,14 +127,12 @@ Form.create = (Params = {}) => {
             if (errMessage) break;
           }
         }
-        if (errFlag) {
-          if (Params.toastConfig !== false) Toast.fail(errMessage);
-          if (Params && Params.scrollIntoView && document.querySelector(`#${errKey}ByGetFieldDecorator`)) { // 
-            document.querySelector(`#${errKey}ByGetFieldDecorator`).scrollIntoView({ block: "center", behavior: "smooth" });
-          }
-        } else {
-          submitting(errMessage, formInfo);
+        if (Params && !!Params.callback_onErr !== false) Params.callback_onErr(errMessage);
+        if (Params && Params.scrollIntoView && document.querySelector(`#${errKey}ByGetFieldDecorator`)) { // 
+          document.querySelector(`#${errKey}ByGetFieldDecorator`).scrollIntoView({ block: "center", behavior: "smooth" });
         }
+        if(errMessage) console.error(errMessage)
+        submitting(errMessage, formInfo);
       }
       /** 挂载form属性 */
       addtionaProps = () => {
