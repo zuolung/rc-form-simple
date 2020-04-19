@@ -7,11 +7,15 @@ clone到本地安装依赖后运行
     npm i rc-form-simple -S
 ###  使用
 ```
-import { InputItem, Button } from "antd-mobile";
+import { InputItem, Button, Toast } from "antd-mobile";
 import Form from "./components/Form";
 import React from "react";
 
-@Form.create()
+@Form.create({
+    callback_onErr: (mess) => {
+    Toast.fail(mess)
+  }
+})
 class Demo extends React.PureComponent {
 
   submit = () => {
