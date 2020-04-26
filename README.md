@@ -8,7 +8,7 @@ clone到本地安装依赖后运行
 ###  使用
 ```
 import { InputItem, Button, Toast } from "antd-mobile";
-import Form from "./components/Form";
+import Form from "rc-form-simple";
 import React from "react";
 
 @Form.create({
