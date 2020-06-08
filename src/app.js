@@ -4,6 +4,7 @@ import React from "react";
 
 @Form.create({
   callback_onErr: (mess) => {
+    console.log(mess)
     Toast.fail(mess)
   }
 })
@@ -23,7 +24,7 @@ class Demo extends React.PureComponent {
         <div>
           {
             getFieldDecorator("phone", {
-              initialValue: '',
+              initialValue: '13133234234',
               rules: [{ required: true, message: "手机号不能为空" }, {
                 validator: (value, call) => {
                   const telephoneReg = /^1\d{10}$/;
@@ -35,7 +36,7 @@ class Demo extends React.PureComponent {
                 }
               }],
             })(
-              <InputItem placeholder="请输入手机号" />             
+              <input placeholder="请输入手机号" />
             )
           }
         </div>

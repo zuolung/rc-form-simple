@@ -1,11 +1,12 @@
 {
   "name": "rc-form-simple",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "rc-form-simple realization",
-  "main": "./lib/components/Form.js",
+  "main": "./lib/Form.js",
   "scripts": {
     "start": "webpack-dev-server --progress --colors",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "pre": "babel './src/components' -d 'lib/src/components'"
   },
   "repository": {
     "type": "git",
@@ -35,7 +36,5 @@
     "html-webpack-plugin": "^4.0.4",
     "webpack-cli": "^3.3.11"
   },
-  "devDependencies": {
-
-  }
+  "devDependencies": {}
 }
