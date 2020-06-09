@@ -42,7 +42,7 @@ Form.create = (option = {}) => {
             defaultValue: initialMata[key] || ComponentF.value,
           }
           let EleType = ComponentF.type.name;
-          if (EleType === "Picker") propsNew.value = store[key] || initialMata[key] || ComponentF.value;
+          if (typeof ComponentF.type === 'function') propsNew.value = store[key] || initialMata[key] || ComponentF.value;
           if (EleType === "Switch") propsNew.checked = store[key] || initialMata[key] || ComponentF.checked;
           if (scrollIntoView) {
             propsNew.id = `${key}ByGetFieldDecorator`;
