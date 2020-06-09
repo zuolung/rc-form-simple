@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { Component } from "react";
 import fieldStore from "./fieldStore";
 import { comparisonObject } from "./utils/common";
 
@@ -33,7 +33,7 @@ Form.create = (option = {}) => {
           const onChange = (v) => {
             if (ComponentF.props.onChange) ComponentF.props.onChange(v);
             const type = Object.prototype.toString.call(v);
-            this.fieldStore.dispatchStore(key, type === "[object Object]" ? v.target.value : v);
+            this.fieldStore.dispatchStore(key, type === "[object Object]" ? (v.target.value || e.target.checked) : v);
             this.forceUpdate();
           }
           const propsNew = {
@@ -41,6 +41,9 @@ Form.create = (option = {}) => {
             onChange: e => onChange(e),
             defaultValue: initialMata[key] || ComponentF.value,
           }
+          let EleType = ComponentF.type.name;
+          if (EleType === "Picker") propsNew.value = store[key] || initialMata[key] || ComponentF.value;
+          if (EleType === "Switch") propsNew.checked = store[key] || initialMata[key] || ComponentF.checked;
           if (scrollIntoView) {
             propsNew.id = `${key}ByGetFieldDecorator`;
           }

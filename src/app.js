@@ -1,4 +1,4 @@
-import { InputItem, Button, Toast } from "antd-mobile";
+import { InputItem, Button, Toast, Picker, List } from "antd-mobile";
 import Form from "./components/Form";
 import React from "react";
 
@@ -13,7 +13,7 @@ class Demo extends React.Component {
   submit = () => {
     const { form: { validateFields } } = this.props;
     validateFields((err, fieldsValue) => {
-      // if (err) return;
+      if (err) return;
       console.log(fieldsValue, "表单数据集合》》》》》》》》》》》》》》》》》》》")
     })
   }
@@ -24,10 +24,15 @@ class Demo extends React.Component {
         <div>
           {
             getFieldDecorator("a", {
-              initialValue: 1,
+              initialValue: [1],
               rules: [{ required: true, message: "手机号不能为空" }],
             })(
-              <input placeholder="请输入手机号" type='number' />
+              <Picker
+                data={[{ label: "是", value: 2 }, { label: "是213", value: 1 }]}
+                cols={1}
+              >
+                <List.Item arrow="horizontal"></List.Item>
+              </Picker>
             )
           }
         </div>
