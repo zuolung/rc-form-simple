@@ -8,36 +8,47 @@ import React from "react";
     Toast.fail(mess)
   }
 })
-class Demo extends React.PureComponent {
+class Demo extends React.Component {
 
   submit = () => {
     const { form: { validateFields } } = this.props;
     validateFields((err, fieldsValue) => {
-      if (err) return;
+      // if (err) return;
       console.log(fieldsValue, "表单数据集合》》》》》》》》》》》》》》》》》》》")
     })
   }
   render() {
-    const { form: { getFieldDecorator } } = this.props;
+    const { form: { getFieldDecorator, getFieldValue, store } } = this.props;
     return (
       <div>
         <div>
           {
-            getFieldDecorator("phone", {
-              initialValue: '13133234234',
-              rules: [{ required: true, message: "手机号不能为空" }, {
-                validator: (value, call) => {
-                  const telephoneReg = /^1\d{10}$/;
-                  if (telephoneReg.test(value) || value == "") {
-                    call();
-                  } else {
-                    call("该号码不符合手机号码格式");
-                  }
-                }
-              }],
+            getFieldDecorator("a", {
+              initialValue: 1,
+              rules: [{ required: true, message: "手机号不能为空" }],
+            })(
+              <input placeholder="请输入手机号" type='number' />
+            )
+          }
+        </div>
+        <div>
+          {
+            getFieldValue('a') == 1 ? getFieldDecorator("bbbbbbbbb", {
+              initialValue: 'bbbbbbbbb',
+              rules: [{ required: true, message: "手机号不能为空" }],
             })(
               <input placeholder="请输入手机号" />
-            )
+            ) : ''
+          }
+        </div>
+        <div>
+          {
+            getFieldValue('a') == 2 ? getFieldDecorator("ccccccccc", {
+              initialValue: 'ccccccccc',
+              rules: [{ required: true, message: "手机号不能为空" }],
+            })(
+              <input placeholder="请输入手机号" />
+            ) : ''
           }
         </div>
         <Button onClick={this.submit}>提交</Button>

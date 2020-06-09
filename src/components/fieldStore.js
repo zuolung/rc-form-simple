@@ -8,7 +8,6 @@ class FieldStore {
     this.initialMata = {};
   }
   dispatchStore = (key, value) => {
-    console.log(value)
     this.store[key] = value;
   }
 
@@ -21,7 +20,7 @@ class FieldStore {
   }
 
   getFieldValue = (key) => {
-    return this.store[key];
+    return this.store[key] || this.initialMata[key];
   }
 
   setFieldsValue = (props) => {

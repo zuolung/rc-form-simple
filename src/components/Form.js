@@ -5,7 +5,7 @@ import { comparisonObject } from "./utils/common";
 
 export default class Form extends React.Component { }
 
-Form.create = (option) => {
+Form.create = (option = {}) => {
   const {
     scrollIntoView, // 表单提交异常时滚动表单项到视图中央
     callback_onErr, // 接收表单异常处理方法
@@ -14,7 +14,8 @@ Form.create = (option) => {
     return class extends React.Component {
       constructor() {
         super();
-        this.fieldStore = fieldStore();
+        this.state = {};
+        this.fieldStore = fieldStore()
       }
 
       getFieldDecorator = (key, config = { rules: [], initialValue }) => {
@@ -25,16 +26,19 @@ Form.create = (option) => {
         if (rules[key] === undefined || (rules[key].length && !comparisonObject(rules[key][0], config.rules[0]))) {
           this.fieldStore.dispatchRules(key, config.rules);
         }
-        this.fieldStore.dispatchInitialMeta(key, config.initialValue);
+        if (!(key in initialMata)) {
+          this.fieldStore.dispatchInitialMeta(key, config.initialValue);
+        }
         return (ComponentF) => {
           const onChange = (v) => {
-            if (ComponentF.props.onChange) onChange(v);
+            if (ComponentF.props.onChange) ComponentF.props.onChange(v);
             const type = Object.prototype.toString.call(v);
             this.fieldStore.dispatchStore(key, type === "[object Object]" ? v.target.value : v);
+            this.forceUpdate();
           }
           const propsNew = {
             ...ComponentF.props,
-            onChange,
+            onChange: e => onChange(e),
             defaultValue: initialMata[key] || ComponentF.value,
           }
           if (scrollIntoView) {
@@ -46,6 +50,7 @@ Form.create = (option) => {
       }
 
       validateFieldsWraped = (submit) => {
+        if (this.state.submitting) return;
         this.fieldStore.validateFields((errMess, store) => {
           if (scrollIntoView) {
             return document.querySelector(`#${errKey}ByGetFieldDecorator`).scrollIntoView({ block: "center", behavior: "smooth" });
@@ -53,28 +58,33 @@ Form.create = (option) => {
           if (callback_onErr && errMess) {
             return callback_onErr(errMess);
           }
-          if (errMessage) return console.error(errMessage);
+          if (errMess) return console.error(errMessage);
+          this.setState({ submitting: false })
           submit(errMess, store);
         })
       }
 
+      submitting = () => {
+        return Boolean(this.state.submitting)
+      }
+
       addtionaProps = () => {
         return {
-          form: {
-            getFieldDecorator: this.getFieldDecorator,
-            setFieldsValue: this.fieldStore.setFieldsValue,
-            getFieldValue: this.fieldStore.getFieldValue,
-            validateFields: this.validateFieldsWraped,
-            resetFields: this.fieldStore.resetFields,
-            store: this.fieldStore.store,
-          }
+          getFieldDecorator: this.getFieldDecorator,
+          setFieldsValue: this.fieldStore.setFieldsValue,
+          getFieldValue: this.fieldStore.getFieldValue,
+          validateFields: this.validateFieldsWraped,
+          resetFields: this.fieldStore.resetFields,
+          store: this.fieldStore.store,
+          submitting: this.submitting(),
         }
       }
 
       render() {
+        var props = { form: this.addtionaProps() };
         return (
           <WrappedComponent
-            {...this.addtionaProps()}
+            {...props}
           />
         )
       }

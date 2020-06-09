@@ -1,8 +1,8 @@
 {
   "name": "rc-form-simple",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "description": "rc-form-simple realization",
-  "main": "./lib/Form.js",
+  "main": "./lib/src/components/Form.js",
   "scripts": {
     "start": "webpack-dev-server --progress --colors",
     "build": "webpack --mode production",
