@@ -39,17 +39,25 @@ class Demo extends React.Component {
         <div>
           {
             getFieldValue('a') == 1 ? getFieldDecorator("bbbbbbbbb", {
-              initialValue: 'bbbbbbbbb',
+              initialValue: 1,
               rules: [{ required: true, message: "手机号不能为空" }],
             })(
-              <input placeholder="请输入手机号" />
+              <input placeholder="请输入手机号" type='number' />
             ) : ''
           }
         </div>
         <div>
           {
-            getFieldValue('a') == 2 ? getFieldDecorator("ccccccccc", {
+            getFieldValue('bbbbbbbbb') > 2 ? getFieldDecorator("ccccccccc", {
               initialValue: 'ccccccccc',
+              rules: [{ required: true, message: "手机号不能为空" }],
+            })(
+              <input placeholder="请输入手机号" />
+            ) : ''
+          }
+          {
+            getFieldValue('bbbbbbbbb') <= 2 ? getFieldDecorator("ddd", {
+              initialValue: 'ddddd',
               rules: [{ required: true, message: "手机号不能为空" }],
             })(
               <input placeholder="请输入手机号" />
