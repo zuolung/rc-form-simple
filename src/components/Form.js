@@ -33,7 +33,7 @@ Form.create = (option = {}) => {
           const onChange = (v) => {
             if (ComponentF.props.onChange) ComponentF.props.onChange(v);
             const type = Object.prototype.toString.call(v);
-            this.fieldStore.dispatchStore(key, type === "[object Object]" ? (v.target.value || e.target.checked) : v);
+            this.fieldStore.dispatchStore(key, type === "[object Object]" ? (v.target.value || v.target.checked) : v);
             this.forceUpdate();
           }
           const propsNew = {
