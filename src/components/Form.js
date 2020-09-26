@@ -1,5 +1,5 @@
 
-import React, { Component } from "react";
+import React from "react";
 import fieldStore from "./fieldStore";
 import { comparisonObject } from "./utils/common";
 

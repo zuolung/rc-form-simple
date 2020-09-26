@@ -1,5 +1,5 @@
 import { InputItem, Button, Toast, Picker, List } from "antd-mobile";
-import Form from "./components/Form";
+import Form from "../index";
 import React from "react";
 
 @Form.create({
