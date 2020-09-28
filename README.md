@@ -1,8 +1,8 @@
 # rc-form-simple
     简单的实现rc-form的功能，支持自定义组件value+onChange事件，支持antdMobile的InputItem、Picker、switch等组件，
     适用于antdMobile的框架下表单Toast提示
-### Demo下载查看
-clone到本地安装依赖后运行 
+### Demo查看
+[在线查看](https://zuolung.github.io/rc-form-simple/dist/index.html)
 ### 安装
     npm i rc-form-simple -S
 ###  使用
