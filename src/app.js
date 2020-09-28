@@ -19,9 +19,16 @@ class Demo extends React.Component {
   }
   render() {
     const { form: { getFieldDecorator, getFieldValue, store } } = this.props;
+    const itemStyle = {
+      display: "flex",
+      alignItems: "center",
+      width: "100%",
+      height: 40
+    }
     return (
       <div>
-        <div>
+        <div style={itemStyle}>
+          <div style={{ marginRight: 20 }}>下拉选择</div>
           {
             getFieldDecorator("a", {
               initialValue: [1],
@@ -30,23 +37,26 @@ class Demo extends React.Component {
               <Picker
                 data={[{ label: "是", value: 2 }, { label: "是213", value: 1 }]}
                 cols={1}
+                style={{ width: 250 }}
               >
                 <List.Item arrow="horizontal"></List.Item>
               </Picker>
             )
           }
         </div>
-        <div>
+        <div style={itemStyle}>
+          <div style={{ marginRight: 20 }}>下拉=1有我</div>
           {
             getFieldValue('a') == 1 ? getFieldDecorator("bbbbbbbbb", {
               initialValue: 1,
               rules: [{ required: true, message: "手机号不能为空" }],
             })(
-              <input placeholder="请输入手机号" type='number' />
+              <input placeholder="请输入手机号1" type='number' />
             ) : ''
           }
         </div>
-        <div>
+        <div style={itemStyle}>
+          <div style={{ marginRight: 20 }}>手机号1大于2有我</div>
           {
             getFieldValue('bbbbbbbbb') > 2 ? getFieldDecorator("ccccccccc", {
               initialValue: 'ccccccccc',
@@ -55,6 +65,9 @@ class Demo extends React.Component {
               <input placeholder="请输入手机号" />
             ) : ''
           }
+        </div>
+        <div style={itemStyle}>
+          <div style={{ marginRight: 20 }}>手机号2小于3有我</div>
           {
             getFieldValue('bbbbbbbbb') <= 2 ? getFieldDecorator("ddd", {
               initialValue: 'ddddd',
