@@ -87,6 +87,7 @@ Form.create = (option = {}) => {
         var props = { form: this.addtionaProps() };
         return (
           <WrappedComponent
+            {...this.props}
             {...props}
           />
         )
